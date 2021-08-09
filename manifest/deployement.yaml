@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapicoretest
+  namespace: mspoc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapicoretest
+  template:
+    metadata:
+      labels:
+        app: webapicoretest
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: webapicoretest
+        image: dhanreg.azurecr.io/satyendrasahu2021/webapicoretest:3.0
+        env:
+        - name: DbConnection
+          value: secret-sync@azurekeyvault
+        ports:
+        - containerPort: 80
+          name: webapicoretest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapicoretest
+  namespace: mspoc
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+  selector:
+    app: webapicoretest
+
