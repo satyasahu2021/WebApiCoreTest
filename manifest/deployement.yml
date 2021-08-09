@@ -17,7 +17,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: webapicoretest
-        image: dhanreg.azurecr.io/satyendrasahu2021/webapicoretest:3.0
+        image: satyendrasahu2021/webapicoretest
         env:
         - name: DbConnection
           value: secret-sync@azurekeyvault
